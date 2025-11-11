@@ -1,0 +1,11 @@
+#pragma once
+
+#include "common.h"
+#include <time.h>
+
+typedef struct Matrix matrix__t;
+
+matrix__t* get_matrix(const size_t rows, const size_t columns);
+void fill_matrix(matrix__t *matrix);
+void display_matrix(matrix__t *matrix);
+void destroy_matrix(matrix__t *matrix);
