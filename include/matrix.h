@@ -12,3 +12,4 @@ void display_matrix(matrix__t *matrix);
 void destroy_matrix(matrix__t *matrix);
 matrix__t* matrix_transpose(matrix__t* matrix);
 matrix__t* sum_matrix(matrix__t *matrix1, matrix__t *matrix2);
+matrix__t* difference_matrix(matrix__t *matrix1, matrix__t *matrix2);

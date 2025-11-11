@@ -105,6 +105,23 @@ matrix__t* sum_matrix(matrix__t *matrix1, matrix__t *matrix2)
     return matrix3;
 }
 
+matrix__t* difference_matrix(matrix__t *matrix1, matrix__t *matrix2)
+{
+    assert(NULL != matrix1 && NULL != matrix2 && (matrix1->rows == matrix2->rows && matrix1->columns == matrix2->columns));
+    matrix__t *matrix3 = get_matrix(matrix1->rows, matrix1->columns);
+    if(NULL != matrix3)
+    {
+        for(size_t i = 0; i < matrix3->rows; i++)
+        {
+            for(size_t j = 0; j < matrix3->columns; j++)
+            {
+                matrix3->matrix[i][j] = matrix1->matrix[i][j] - matrix2->matrix[i][j];
+            }
+        }
+    }
+    return matrix3;
+}
+
 int main(int argc, char **argv)
 {
     matrix__t *matrix1 = get_matrix(3, 3);
@@ -123,10 +140,15 @@ int main(int argc, char **argv)
     matrix__t *matrix3 = sum_matrix(matrix1, matrix2);
     display_matrix(matrix3);
     SEPARATOR;
+
+    matrix__t *matrix4 = difference_matrix(matrix1, matrix2);
+    display_matrix(matrix4);
+    SEPARATOR;
     
     destroy_matrix(matrix1);
     destroy_matrix(matrix2);
     destroy_matrix(matrix3);
+    destroy_matrix(matrix4);
     //destroy_matrix(transpose);
     return 0;
 }
