@@ -1,12 +1,28 @@
 #include "matrix.h"
 
 #define SEPARATOR printf("\n")
+#define GREEN_START printf("\033[0;32m")
+#define GREEN_END printf("\033[0m")
 struct Matrix
 {
     size_t rows;
     size_t columns;
     int **matrix;
 };
+
+bool is_valid_matrix(matrix__t *matrix)
+{
+    bool isValid = false;
+    if (
+        NULL != matrix &&
+        matrix->rows > 0 &&
+        matrix->columns > 0 &&
+        NULL != matrix->matrix)
+    {
+        isValid = true;
+    }
+    return isValid;
+}
 
 void fill_matrix(matrix__t *matrix)
 {
@@ -53,6 +69,7 @@ void display_matrix(matrix__t *matrix)
                 printf("%d\t", matrix->matrix[i][j]);
             }
             printf("\n");
+            sleep(1);
         }
     }
 }
@@ -88,67 +105,92 @@ matrix__t *matrix_transpose(matrix__t *matrix)
     return mat;
 }
 
-matrix__t* sum_matrix(matrix__t *matrix1, matrix__t *matrix2)
+matrix__t *sum_matrix(matrix__t *matrix1, matrix__t *matrix2)
 {
-    assert(NULL != matrix1 && NULL != matrix2 && (matrix1->rows == matrix2->rows && matrix1->columns == matrix2->columns));
-    matrix__t *matrix3 = get_matrix(matrix1->rows, matrix1->columns);
-    if(NULL != matrix3)
+    matrix__t *matrix3 = NULL;
+    if (is_valid_matrix(matrix1) && is_valid_matrix(matrix2) && (matrix1->rows == matrix2->rows && matrix1->columns == matrix2->columns))
     {
-        for(size_t i = 0; i < matrix3->rows; i++)
+        matrix3 = get_matrix(matrix1->rows, matrix1->columns);
+        if (NULL != matrix3)
         {
-            for(size_t j = 0; j < matrix3->columns; j++)
+            for (size_t i = 0; i < matrix3->rows; i++)
             {
-                matrix3->matrix[i][j] = matrix1->matrix[i][j] + matrix2->matrix[i][j];
+                for (size_t j = 0; j < matrix3->columns; j++)
+                {
+                    matrix3->matrix[i][j] = matrix1->matrix[i][j] + matrix2->matrix[i][j];
+                }
             }
         }
     }
     return matrix3;
 }
 
-matrix__t* difference_matrix(matrix__t *matrix1, matrix__t *matrix2)
+matrix__t *difference_matrix(matrix__t *matrix1, matrix__t *matrix2)
 {
-    assert(NULL != matrix1 && NULL != matrix2 && (matrix1->rows == matrix2->rows && matrix1->columns == matrix2->columns));
-    matrix__t *matrix3 = get_matrix(matrix1->rows, matrix1->columns);
-    if(NULL != matrix3)
+    matrix__t *matrix3 = NULL;
+    if (is_valid_matrix(matrix1) && is_valid_matrix(matrix2) && (matrix1->rows == matrix2->rows && matrix1->columns == matrix2->columns))
     {
-        for(size_t i = 0; i < matrix3->rows; i++)
+        matrix3 = get_matrix(matrix1->rows, matrix1->columns);
+        if (NULL != matrix3)
         {
-            for(size_t j = 0; j < matrix3->columns; j++)
+            for (size_t i = 0; i < matrix3->rows; i++)
             {
-                matrix3->matrix[i][j] = matrix1->matrix[i][j] - matrix2->matrix[i][j];
+                for (size_t j = 0; j < matrix3->columns; j++)
+                {
+                    matrix3->matrix[i][j] = matrix1->matrix[i][j] - matrix2->matrix[i][j];
+                }
             }
         }
     }
     return matrix3;
+}
+
+matrix__t *multiply_matrix(matrix__t *matrix1, matrix__t *matrix2)
+{
+    if(is_valid_matrix(matrix1) && is_valid_matrix(matrix2) && matrix1->columns == matrix2->rows)
+    {
+        
+    }
+    return NULL;
 }
 
 int main(int argc, char **argv)
 {
-    matrix__t *matrix1 = get_matrix(3, 3);
-    fill_matrix(matrix1);
-    display_matrix(matrix1);
-    SEPARATOR;
-    // matrix__t *transpose = matrix_transpose(matrix1);
-    // display_matrix(transpose);
+    // matrix__t *matrix1 = get_matrix(3, 3);
+    // fill_matrix(matrix1);
+    // display_matrix(matrix1);
     // SEPARATOR;
-    sleep(1);
-    matrix__t *matrix2 = get_matrix(3, 3);
-    fill_matrix(matrix2);
-    display_matrix(matrix2);
-    SEPARATOR;
+    // // matrix__t *transpose = matrix_transpose(matrix1);
+    // // display_matrix(transpose);
+    // // SEPARATOR;
+    // sleep(1);
+    // matrix__t *matrix2 = get_matrix(3, 3);
+    // fill_matrix(matrix2);
+    // display_matrix(matrix2);
+    // SEPARATOR;
 
-    matrix__t *matrix3 = sum_matrix(matrix1, matrix2);
-    display_matrix(matrix3);
-    SEPARATOR;
+    // matrix__t *matrix3 = sum_matrix(matrix1, matrix2);
+    // display_matrix(matrix3);
+    // SEPARATOR;
 
-    matrix__t *matrix4 = difference_matrix(matrix1, matrix2);
-    display_matrix(matrix4);
-    SEPARATOR;
-    
-    destroy_matrix(matrix1);
-    destroy_matrix(matrix2);
-    destroy_matrix(matrix3);
-    destroy_matrix(matrix4);
-    //destroy_matrix(transpose);
+    // matrix__t *matrix4 = difference_matrix(matrix1, matrix2);
+    // display_matrix(matrix4);
+    // SEPARATOR;
+
+    // destroy_matrix(matrix1);
+    // destroy_matrix(matrix2);
+    // destroy_matrix(matrix3);
+    // destroy_matrix(matrix4);
+    // //destroy_matrix(transpose);
+    matrix__t *matrix = get_matrix(1000, 1000);
+    if (NULL != matrix)
+    {
+        fill_matrix(matrix);
+        GREEN_START;
+        display_matrix(matrix);
+        GREEN_END;
+        destroy_matrix(matrix);
+    }
+
     return 0;
 }
