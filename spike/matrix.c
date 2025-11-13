@@ -69,7 +69,6 @@ void display_matrix(matrix__t *matrix)
                 printf("%d\t", matrix->matrix[i][j]);
             }
             printf("\n");
-            sleep(1);
         }
     }
 }
@@ -147,13 +146,28 @@ matrix__t *difference_matrix(matrix__t *matrix1, matrix__t *matrix2)
 
 matrix__t *multiply_matrix(matrix__t *matrix1, matrix__t *matrix2)
 {
+    matrix__t *result = NULL;
     if(is_valid_matrix(matrix1) && is_valid_matrix(matrix2) && matrix1->columns == matrix2->rows)
     {
-        
+        result = get_matrix(matrix1->rows, matrix2->columns);
+        if(NULL != result)
+        {
+            for(size_t i = 0; i < result->rows; i++)
+            {
+                for(size_t j = 0; j < result->columns; j++)
+                {
+                    result->matrix[i][j] = 0;
+                    for(size_t k = 0; k < result->columns; k++)
+                    {
+                        result->matrix[i][j] += matrix1->matrix[i][k] * matrix2->matrix[k][j];
+                    }
+                }
+            }
+        }
     }
-    return NULL;
+    return result;
 }
-
+/*
 int main(int argc, char **argv)
 {
     // matrix__t *matrix1 = get_matrix(3, 3);
@@ -182,15 +196,32 @@ int main(int argc, char **argv)
     // destroy_matrix(matrix3);
     // destroy_matrix(matrix4);
     // //destroy_matrix(transpose);
-    matrix__t *matrix = get_matrix(1000, 1000);
-    if (NULL != matrix)
-    {
-        fill_matrix(matrix);
-        GREEN_START;
-        display_matrix(matrix);
-        GREEN_END;
-        destroy_matrix(matrix);
-    }
+    // matrix__t *matrix = get_matrix(1000, 1000);
+    // if (NULL != matrix)
+    // {
+    //     fill_matrix(matrix);
+    //     GREEN_START;
+    //     display_matrix(matrix);
+    //     GREEN_END;
+    //     destroy_matrix(matrix);
+    // }
 
+    matrix__t *matrix1 = get_matrix(3, 3);
+    fill_matrix(matrix1);
+    display_matrix(matrix1);
+    SEPARATOR;
+    sleep(1);
+    matrix__t *matrix2 = get_matrix(3, 3);
+    fill_matrix(matrix2);
+    display_matrix(matrix2);
+    SEPARATOR;
+    sleep(1);
+    matrix__t * matrix3 = multiply_matrix(matrix1, matrix2);
+    display_matrix(matrix3);
+    SEPARATOR;
+    destroy_matrix(matrix1);
+    destroy_matrix(matrix2);
+    destroy_matrix(matrix3);
     return 0;
 }
+*/
