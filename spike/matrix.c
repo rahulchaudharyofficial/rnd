@@ -3,6 +3,7 @@
 #define SEPARATOR printf("\n")
 #define GREEN_START printf("\033[0;32m")
 #define GREEN_END printf("\033[0m")
+
 struct Matrix
 {
     size_t rows;
@@ -167,7 +168,7 @@ matrix__t *multiply_matrix(matrix__t *matrix1, matrix__t *matrix2)
     }
     return result;
 }
-/*
+
 int main(int argc, char **argv)
 {
     // matrix__t *matrix1 = get_matrix(3, 3);
@@ -224,4 +225,3 @@ int main(int argc, char **argv)
     destroy_matrix(matrix3);
     return 0;
 }
-*/
