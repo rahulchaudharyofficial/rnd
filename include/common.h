@@ -12,5 +12,7 @@
 typedef struct Head head_t;
 typedef struct Node node_t;
 
-head_t* createHead(const int size, const node_t *front, const node_t* rear);
-node_t* createNode(const int data, const node_t* next, const node_t* previous);
+head_t* _createHead(void);
+node_t* _createNode(void);
+head_t* createHead( int size,  node_t *front,  node_t* rear);
+node_t* createNode( int data,  node_t* next,  node_t* previous);
