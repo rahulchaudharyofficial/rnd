@@ -1,7 +1,6 @@
 #include "common.h"
 
 
-
 #define HEAD_LIST \
 	HEAD_LIST_ARRTIBUTE (size, int) \
 	HEAD_LIST_ARRTIBUTE (front, node_t*) \
@@ -13,22 +12,6 @@
 	NODE_LIST_ARRTIBUTE (previous, node_t*) \
 	NODE_LIST_ARRTIBUTE (next, node_t*) \
 
-#define HEAD_LIST_ARRTIBUTE (NAME, TYPE) \
-	TYPE get_head_##NAME(void); \
-	void set_head_##NAME(TYPE NAME); \
-	HEAD_LIST
-#undef HEAD_LIST_ARRTIBUTE
-
-struct Head {
-	#define HEAD_LIST_ARRTIBUTE(NAME, TYPE)	\
-		TYPE NAME;
-		HEAD_LIST
-	#undef HEAD_LIST_ARRTIBUTE
-};
-
-
-
-
 struct Node
 {
 	#define NODE_LIST_ARRTIBUTE(NAME, TYPE)	\
@@ -37,7 +20,24 @@ struct Node
 	#undef NODE_LIST_ARRTIBUTE
 };
 
-
+struct Head {
+	#define HEAD_LIST_ARRTIBUTE(NAME, TYPE)	\
+		TYPE NAME;
+		HEAD_LIST
+	#undef HEAD_LIST_ARRTIBUTE
+};
+/**
+ #define HEAD_LIST_ARRTIBUTE(NAME, TYPE) \
+ 	TYPE get_head_##NAME(void); \	
+ 	void set_head_##NAME(TYPE NAME); \
+ 	HEAD_LIST
+ #undef HEAD_LIST_ARRTIBUT
+ #define NODE_LIST_ARRTIBUTE(NAME, TYPE)	\
+ 	TYPE get_node_##NAME(void); 			\
+ 	void set_node_##NAME(TYPE NAME);		\
+ 	NODE_LIST
+ #undef NODE_LIST_ARRTIBUTE
+*/
 head_t* _createHead(void)
 {
 	head_t* head = (head_t*) malloc(sizeof(head_t));
