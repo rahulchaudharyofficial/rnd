@@ -34,7 +34,7 @@ struct Head {
  #undef HEAD_LIST_ARRTIBUT
 
 
- #define NODE_LIST_ARRTIBUTE(NAME, TYPE)	\
+ #define NODE_LIST_ARRTIBUTE(NAME, TYPE) \
  	TYPE get_node_##NAME(void); \
  	void set_node_##NAME(TYPE NAME);
  	NODE_LIST
