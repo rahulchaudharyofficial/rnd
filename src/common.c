@@ -1,17 +1,42 @@
 #include "common.h"
 
+
+
+#define HEAD_LIST \
+	HEAD_LIST_ARRTIBUTE (size, int) \
+	HEAD_LIST_ARRTIBUTE (front, node_t*) \
+	HEAD_LIST_ARRTIBUTE (rear, node_t*) \
+
+
+#define NODE_LIST \
+	NODE_LIST_ARRTIBUTE (data, int) \
+	NODE_LIST_ARRTIBUTE (previous, node_t*) \
+	NODE_LIST_ARRTIBUTE (next, node_t*) \
+
+#define HEAD_LIST_ARRTIBUTE (NAME, TYPE) \
+	TYPE get_head_##NAME(void); \
+	void set_head_##NAME(TYPE NAME); \
+	HEAD_LIST
+#undef HEAD_LIST_ARRTIBUTE
+
 struct Head {
-	int size;
-	struct Node* front;
-	struct Node* rear;
+	#define HEAD_LIST_ARRTIBUTE(NAME, TYPE)	\
+		TYPE NAME;
+		HEAD_LIST
+	#undef HEAD_LIST_ARRTIBUTE
 };
+
+
+
 
 struct Node
 {
-	int data;
-	struct Node* next;
-	struct Node* previous;
+	#define NODE_LIST_ARRTIBUTE(NAME, TYPE)	\
+		TYPE NAME;
+		NODE_LIST
+	#undef NODE_LIST_ARRTIBUTE
 };
+
 
 head_t* _createHead(void)
 {
@@ -20,12 +45,14 @@ head_t* _createHead(void)
 	return head;
 }
 
+
 node_t* _createNode(void)
 {
 	node_t* node = (node_t*)malloc(sizeof(node_t));
 	assert(node != NULL);
 	return node;
 }
+
 
 head_t* createHead( int size,  node_t* front,  node_t* rear)
 {
@@ -35,6 +62,7 @@ head_t* createHead( int size,  node_t* front,  node_t* rear)
 	head->rear = rear;
 	return head;
 }
+
 
 node_t* createNode( int data,  node_t* next,  node_t* previous)
 {
