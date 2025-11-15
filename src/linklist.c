@@ -3,7 +3,7 @@
 
 head_t* createLinkList(void)
 {
-    head_t *head = createHead(-1,NULL, NULL);
+    head_t *head = createHead();
     if(head != NULL)
     {
         

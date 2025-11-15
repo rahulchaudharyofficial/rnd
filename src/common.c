@@ -1,76 +1,55 @@
 #include "common.h"
 
 
-#define HEAD_LIST \
-	HEAD_LIST_ARRTIBUTE (size, int) \
-	HEAD_LIST_ARRTIBUTE (front, node_t*) \
-	HEAD_LIST_ARRTIBUTE (rear, node_t*) \
-
-
-#define NODE_LIST \
-	NODE_LIST_ARRTIBUTE (data, int) \
-	NODE_LIST_ARRTIBUTE (previous, node_t*) \
-	NODE_LIST_ARRTIBUTE (next, node_t*) \
+struct Head {
+	int size;
+	node_t* front;
+	node_t* rear;
+};
 
 struct Node
 {
-	#define NODE_LIST_ARRTIBUTE(NAME, TYPE)	\
-		TYPE NAME;
-		NODE_LIST
-	#undef NODE_LIST_ARRTIBUTE
+	int data;
+	struct Node* next;
+	struct Node* previous;
 };
 
-struct Head {
-	#define HEAD_LIST_ARRTIBUTE(NAME, TYPE)	\
-		TYPE NAME;
-		HEAD_LIST
-	#undef HEAD_LIST_ARRTIBUTE
-};
-
- #define HEAD_LIST_ARRTIBUTE(NAME, TYPE) \
- 	TYPE get_head_##NAME(void); \	
- 	void set_head_##NAME(TYPE NAME);
- 	HEAD_LIST
- #undef HEAD_LIST_ARRTIBUT
-
-
- #define NODE_LIST_ARRTIBUTE(NAME, TYPE) \
- 	TYPE get_node_##NAME(void); \
- 	void set_node_##NAME(TYPE NAME);
- 	NODE_LIST
- #undef NODE_LIST_ARRTIBUTE
-
-head_t* _createHead(void)
+head_t* createHead(void)
 {
-	head_t* head = (head_t*) malloc(sizeof(head_t));
-	assert(head != NULL);
+	head_t* head = (head_t*)malloc(sizeof(head_t));
+	if (NULL != head)
+	{
+		head->size = DEFAULT_SIZE;
+		head->front = NULL;
+		head->rear = NULL;
+	}
 	return head;
 }
 
-
-node_t* _createNode(void)
+node_t* createNode(const int data)
 {
 	node_t* node = (node_t*)malloc(sizeof(node_t));
-	assert(node != NULL);
+	if(NULL != node)
+	{ 
+		node->data = data;
+		node->next = NULL;
+		node->previous = NULL;
+	}
 	return node;
 }
 
+// head methods
+int get_head_size(head_t* head) { return (NULL!=head ? head->size : DEFAULT_SIZE); }
+node_t* get_head_front(head_t* head) { return (NULL != head ? head->front : NULL); }
+node_t* get_head_rear(head_t* head) { return (NULL != head ? head->rear : NULL); }
+void set_head_size(head_t* head, int size) { if (NULL != head) head->size = size; }
+void set_head_front(head_t* head, node_t* front) { if (NULL != head) head->front = front; }
+void set_head_rear(head_t* head, node_t* rear) { if (NULL != head) head->rear = rear; }
 
-head_t* createHead( int size,  node_t* front,  node_t* rear)
-{
-	head_t* head = _createHead();
-	head -> size = size;
-	head->front = front;
-	head->rear = rear;
-	return head;
-}
-
-
-node_t* createNode( int data,  node_t* next,  node_t* previous)
-{
-	node_t* node = _createNode();
-	node->data = data;
-	node->next = next;
-	node->previous = previous;
-	return node;
-}
+// node methods
+int get_node_data(node_t* node) { return (NULL != node? node->data : DEFAULT_SIZE); }
+node_t* get_node_previous(node_t* node) { return (NULL != node ? node->previous : NULL); }
+node_t* get_node_next(node_t* node) { return (NULL != node ? node->next : NULL); }
+void set_node_data(node_t* node, int data) { if (NULL != node) node->data = data; }
+void set_node_previous(node_t* to, node_t* previous) { if (NULL != to) to->previous = previous; }
+void set_node_next(node_t* to, node_t* next) { if (NULL != to) to->next = next; }

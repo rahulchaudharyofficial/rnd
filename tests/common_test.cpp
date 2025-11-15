@@ -6,6 +6,6 @@ extern "C" {
 
 TEST (COMMON_TEST_SUITE, CREATE_HEAD_TEST) 
 {
-    head_t *head = createHead(-1, NULL,NULL);
-    EXPECT_TRUE(head != NULL && head->size == -1 && head -> front == NULL && head -> rear == NULL);
+    head_t *head = createHead();
+    EXPECT_TRUE(head != NULL && get_head_size(head) == -1 && get_head_front(head) == NULL && get_head_rear(head) == NULL);
 }
