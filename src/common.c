@@ -26,18 +26,20 @@ struct Head {
 		HEAD_LIST
 	#undef HEAD_LIST_ARRTIBUTE
 };
-/**
+
  #define HEAD_LIST_ARRTIBUTE(NAME, TYPE) \
  	TYPE get_head_##NAME(void); \	
- 	void set_head_##NAME(TYPE NAME); \
+ 	void set_head_##NAME(TYPE NAME);
  	HEAD_LIST
  #undef HEAD_LIST_ARRTIBUT
+
+
  #define NODE_LIST_ARRTIBUTE(NAME, TYPE)	\
- 	TYPE get_node_##NAME(void); 			\
- 	void set_node_##NAME(TYPE NAME);		\
+ 	TYPE get_node_##NAME(void); \
+ 	void set_node_##NAME(TYPE NAME);
  	NODE_LIST
  #undef NODE_LIST_ARRTIBUTE
-*/
+
 head_t* _createHead(void)
 {
 	head_t* head = (head_t*) malloc(sizeof(head_t));
